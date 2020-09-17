@@ -18,6 +18,18 @@ function Movie({ addToSavedList }) {
     addToSavedList(movie);
   };
 
+  const deleteMovie = e => {
+    e.preventDefault();
+    axios.delete(`http://localhost:5000/api/movies/${movie.id}`)
+    .then(res => {
+      console.log(res)
+      window.location = '/'
+    })
+    .catch(err => {
+      console.log(err.response)
+    })
+  }
+
   useEffect(() => {
     fetchMovie(params.id);
   }, [params.id]);
@@ -33,6 +45,7 @@ function Movie({ addToSavedList }) {
       <div className="save-button" onClick={saveMovie}>
         Save
       </div>
+      <button onClick={deleteMovie}>Delete</button>
     </div>
   );
 }
