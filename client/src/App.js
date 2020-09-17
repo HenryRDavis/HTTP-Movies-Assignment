@@ -43,7 +43,7 @@ const App = () => {
       </Route>
 
       <Route path='/add-movie'>
-        <AddMovie  />
+        <AddMovie />
       </Route>
 
       <Route path="/movies/:id">

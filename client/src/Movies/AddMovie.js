@@ -1,6 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
 
 const initialItems = {
     id: '',
@@ -11,14 +10,7 @@ const initialItems = {
 }
 
 const AddMovie = (props) => {
-    const { id } = useParams();
     const [addMovie, setAddMovie] = useState(initialItems);
-
-    useEffect(() => {
-        axios.post(`http://localhost:5000/api/movies/${id}`)
-            .then((res) => setAddMovie(res.data))
-            .catch((err) => console.log(err.response));
-    }, [id])
 
     const changeHandler = (evt) => {
         evt.preventDefault();
@@ -32,9 +24,9 @@ const AddMovie = (props) => {
     const submitHandler = (evt) => {
         evt.preventDefault();
         axios
-            .put(`http://localhost:5000/api/movies/${id}`, addMovie)
+            .post(`http://localhost:5000/api/movies`, addMovie)
             .then(res => {
-                props.moviesList.map((movie) => movie.id === addMovie.id ? addMovie : null);
+                setAddMovie(initialItems);
                 window.location = `/`
             })
             .catch(err => console.log(err))
@@ -70,7 +62,9 @@ const AddMovie = (props) => {
                     placeholder='Metascore'
                     > 
                     </input>
+                <button>Add</button>
                 </form>
+               
         </div>
 )    
 }
